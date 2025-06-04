@@ -97,6 +97,7 @@ function App() {
 
   const ultraRebirth = () => {
     if (count >= 1000000) {
+      alert("Hello world")
       playPhoneRing();
       setCount(0);
       setMultiplier(1);
@@ -135,7 +136,11 @@ function App() {
           </div>
 
           <div className='statsContainer'>
-            <h1>Ben Clicker Stats</h1>
+            {screenWidth >= 1025 ? (
+              <h1>Ben Clicker Stats</h1>
+            ) : (
+              <h3>Ben Clicker Stats</h3>
+            )}
             <div>Bens: <strong>{count}</strong></div>
             <div>Multiplier: <strong>{multiplier}</strong></div>
             <div>Auto Clickers: <strong>{autoClickers}</strong></div>
@@ -148,25 +153,29 @@ function App() {
               autoClickerCost={Math.floor(100 * Math.pow(1.3, autoClickers))}
             />
 
-            <br /><br /><br /><br />
+            {screenWidth >= 1025 && (
+              <>
+                <br /><br /><br /><br />
 
-            <h1>Einstellungen</h1>
-            <div>
-              <input
-                type="checkbox"
-                id="benToggle"
-                checked={!benMoveTrue}
-                onChange={() => setBenMoveTrue(prev => !prev)}
-              />
-              <label htmlFor="benToggle">Ben Bewegung deaktivieren</label>
-            </div>
+                <h1>Einstellungen</h1>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="benToggle"
+                    checked={!benMoveTrue}
+                    onChange={() => setBenMoveTrue(prev => !prev)}
+                  />
+                  <label htmlFor="benToggle">Ben Bewegung deaktivieren</label>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
-        <div>
-          <button className='phoneButton' >
+        <div className='phoneContainer'>
+          <button className='phoneButton' onClick={ultraRebirth}>
             <img src={Phone} alt='phone' />
-            <div onClick={ultraRebirth}>Ultra Rebirth (1.000.000 Bens)</div>
+            <div>Ultra Rebirth (1.000.000 Bens)</div>
           </button>
         </div>
       </div>

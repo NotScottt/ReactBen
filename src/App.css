@@ -31,7 +31,6 @@
   overflow: hidden;
 }
 
-
 .statsContainer {
   position: absolute;
   top: 15%;
@@ -66,7 +65,7 @@
 }
 
 .phoneButton {
-  width:  200px;
+  width: 200px;
   height: 200px;
   border: none;
   background-color: transparent;
@@ -135,5 +134,16 @@
 
   .phoneButton {
     margin-top: 5%;
+  }
+
+  .statsContainer {
+    left: 10%;
+    top: 74%;
+  }
+
+  .phoneContainer button {
+    width: 100px;
+    margin-left: 230px;
+    margin-top: 50px;
   }
 }
