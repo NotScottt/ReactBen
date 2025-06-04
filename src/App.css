@@ -1,0 +1,34 @@
+.maincontent {
+  text-align: center;
+  margin-top: 2%;
+}
+
+.background img {
+  width: 80%;
+}
+
+/* ...existing code... */
+.gameContainer {
+  position: relative;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.figure {
+  position: absolute;
+  left: 50%;      
+  top: 75%;     
+  /* Optional: Größe anpassen */
+  height: auto;
+}
+
+.figure img:hover {
+  cursor: pointer;
+}
