@@ -9,6 +9,7 @@ import { useBenMovement } from './functionality/BenMovement';
 import { playPhoneRing } from './functionality/PhoneRing';
 import { useEffect, useState } from 'react';
 import BenClickControls from './functionality/BenClickControls';
+import { formatNumber } from './functionality/NumberFormatter';
 
 function App() {
   const moveMent = useBenMovement();
@@ -141,10 +142,10 @@ function App() {
             ) : (
               <h3>Ben Clicker Stats</h3>
             )}
-            <div>Bens: <strong>{count}</strong></div>
-            <div>Multiplier: <strong>{multiplier}</strong></div>
-            <div>Auto Clickers: <strong>{autoClickers}</strong></div>
-            <div>Ultra Rebirths: <strong>{ultraRebirths}</strong></div>
+            <div>Bens: <strong>{formatNumber(count)}</strong></div>
+            <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
+            <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
+            <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)}</strong></div>
 
             <BenClickControls
               onBuyMultiplier={buyMultiplier}

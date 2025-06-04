@@ -1,3 +1,5 @@
+import { formatNumber } from "./NumberFormatter";
+
 export default function BenClickerControls({
     onBuyMultiplier,
     onBuyAutoClicker,
@@ -7,10 +9,10 @@ export default function BenClickerControls({
     return (
         <div className='benClickControls'>
             <button onClick={onBuyMultiplier}>
-                Multiplier ({multiplierCost} Bens)
+                Multiplier ({formatNumber(multiplierCost)} Bens)
             </button>
             <button onClick={onBuyAutoClicker}>
-                Auto Benclicker ({autoClickerCost} Bens)
+                Auto Benclicker ({formatNumber(autoClickerCost)} Bens)
             </button>
         </div>
     );
