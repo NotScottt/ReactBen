@@ -4,7 +4,7 @@ export const useBenMovement = () => {
     const [x, setX] = useState(
         Math.floor(Math.random() * 51) - 100 // -100 bis -30
     );
-    const y = -63;
+    const y = -69;
     const timeoutRef = useRef();
 
     const move = () => {

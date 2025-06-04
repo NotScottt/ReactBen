@@ -7,10 +7,25 @@
   width: 80%;
 }
 
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1px;
+}
+
+#item1 {
+  font-size: 50px;
+}
+
+#item2 {
+  font-size: 12px;
+}
+
 /* ...existing code... */
 .gameContainer {
   position: relative;
-  width: 80%;
+  width: 65%;
   margin: auto;
   overflow: hidden;
 }
@@ -23,12 +38,72 @@
 
 .figure {
   position: absolute;
-  left: 50%;      
-  top: 75%;     
+  left: 50%;
+  top: 75%;
   /* Optional: Größe anpassen */
   height: auto;
 }
 
 .figure img:hover {
   cursor: pointer;
+}
+
+.benFigure {
+  max-width: 100%;
+}
+
+.phoneButton {
+  width: 150px;
+  height: 150px;
+  border: none;
+  background-color: transparent;
+}
+
+.phoneButton img:hover {
+  cursor: pointer;
+}
+
+.phoneButton img {
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .gameContainer {
+    width: 100%;
+  }
+
+  .background img {
+    width: 100vw;
+    height: 65vh;
+    object-fit: cover;
+    display: block;
+  }
+
+  .benFigure {
+    width: 100vw;
+    /* height: 50vh; */
+    object-fit: cover;
+    display: block;
+  }
+
+  .figure {
+    width: 100%;
+  }
+
+  #item1 {
+    font-size: 35px;
+  }
+
+  #item2 {
+    font-size: 10px;
+  }
+
+  .headerContainer {
+    margin-bottom: 5%;
+    margin-top: 5%;
+  }
+
+  .phoneButton {
+    margin-top: 5%;
+  }
 }
