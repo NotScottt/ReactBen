@@ -97,9 +97,8 @@ function App() {
   };
 
   const ultraRebirth = () => {
-    if (count >= 1000000) {
-      alert("Hello world")
-      playPhoneRing();
+    const required = (ultraRebirths + 1) * 250000;
+    if (count >= required) {
       setCount(0);
       setMultiplier(1);
       setAutoClickers(0);
@@ -113,6 +112,7 @@ function App() {
       });
     }
   };
+
 
 
   return (
@@ -176,7 +176,7 @@ function App() {
         <div className='phoneContainer'>
           <button className='phoneButton' onClick={ultraRebirth}>
             <img src={Phone} alt='phone' />
-            <div>Ultra Rebirth (1.000.000 Bens)</div>
+            <div>Ultra Rebirth ({formatNumber((ultraRebirths + 1) * 250000)})</div>
           </button>
         </div>
       </div>
