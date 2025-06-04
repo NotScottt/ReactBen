@@ -1,9 +1,8 @@
-let lastPlayed = 0; // Zeitstempel des letzten Abspielens
+let lastPlayed = 0;
 
 export function playPhoneRing() {
     const now = Date.now();
     if (now - lastPlayed < 10 * 1000) {
-        // Noch keine Minute vergangen, Funktion nicht ausführen
         return;
     }
     lastPlayed = now;
