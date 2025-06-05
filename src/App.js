@@ -9,6 +9,7 @@ import { playPhoneRing } from './functionality/PhoneRing';
 import { formatNumber } from './functionality/NumberFormatter';
 import { SkinPicker } from './functionality/SkinPicker';
 import { useEffect, useState } from 'react';
+import HoldButton from './functionality/HoldButton';
 
 
 function App() {
@@ -176,6 +177,10 @@ function App() {
     });
   }
 
+  const test = () => {
+    console.log("test")
+  }
+
 
   return (
     <>
@@ -192,18 +197,18 @@ function App() {
               <img src={Background} alt='ben'></img>
             </div>
 
-            {/* <div className='figure' style={screenWidth >= 1025 ? staticMovement : staticMovement}> */}
             <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
-              <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben' onClick={handleClick}></img>
+              <HoldButton onHold={handleClick} interval={50} buttonClass={"holdButton"} children={
+                <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben'></img>
+              } />
             </div>
+
           </div>
 
           <div className='statsContainer'>
-            {screenWidth >= 1025 ? (
+            {screenWidth >= 1025 &&
               <h2>Ben Clicker Stats</h2>
-            ) : (
-              <h3>Ben Clicker Stats</h3>
-            )}
+            }
             <div>Bens: <strong>{formatNumber(count)}</strong></div>
             <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
             <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
