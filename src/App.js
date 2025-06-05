@@ -2,14 +2,14 @@ import './App.css';
 import Background from "./assets/BenRoom.jpg"
 import useScreenSize from './functionality/ScreenSize';
 import Phone from "./assets/phone.png"
+import BenClickControls from './functionality/BenClickControls';
 
 import { useBenMovement } from './functionality/BenMovement';
-// import { playRandomSound } from './functionality/RandomAudioPicker';
 import { playPhoneRing } from './functionality/PhoneRing';
-import { useEffect, useState } from 'react';
-import BenClickControls from './functionality/BenClickControls';
 import { formatNumber } from './functionality/NumberFormatter';
 import { SkinPicker } from './functionality/SkinPicker';
+import { useEffect, useState } from 'react';
+
 
 function App() {
   const moveMent = useBenMovement();
@@ -42,7 +42,6 @@ function App() {
     setUltraRebirths(0);
     localStorage.removeItem('benClickerSave');
     localStorage.removeItem('benMoveTrue');
-    setBenMoveTrue(true);
     alert("Dein Spielstand wurde gelöscht!");
   }
 
@@ -82,7 +81,6 @@ function App() {
   }, [autoClickers, multiplier, ultraRebirths]);
 
   const handleClick = () => {
-    console.log(SkinPicker(ultraRebirths))
     if (playSound) { benSound.play(); }
     const gain = multiplier * (ultraRebirths + 1);
     setCount(prev => {
@@ -92,8 +90,33 @@ function App() {
     });
   };
 
+  const multiplierCost = () => {
+    const base = 40 + Math.pow(multiplier, 1.3) * 10;
+    const rebirthFactor = 1 + ultraRebirths * 0.05; // +5% pro Rebirth
+    return Math.floor(base * rebirthFactor);
+  };
+
+  const autoClickerCost = () => {
+    const base = 80 + Math.pow(autoClickers, 1.2) * 20;
+    const rebirthFactor = 1 + ultraRebirths * 0.05; // +5% pro Rebirth
+    return Math.floor(base * rebirthFactor);
+  };
+
+
+  const getUltraRebirthCost = (ultraRebirths) => {
+    let cost = 250000;
+    for (let i = 1; i <= ultraRebirths; i++) {
+      if (i % 2 === 0) {
+        cost *= 4; // jeder 2. = 4× so teuer
+      } else {
+        cost *= 2; // sonst = 2× so teuer
+      }
+    }
+    return cost;
+  };
+
   const buyMultiplier = () => {
-    const cost = Math.floor(40 + Math.pow(multiplier, 1.5) * 10);
+    const cost = multiplierCost();
     if (count >= cost) {
       const newCount = count - cost;
       const newMultiplier = multiplier + 1;
@@ -104,7 +127,7 @@ function App() {
   };
 
   const buyAutoClicker = () => {
-    const cost = Math.floor(80 + Math.pow(autoClickers, 1.4) * 20);
+    const cost = autoClickerCost();
     if (count >= cost) {
       const newCount = count - cost;
       const newAutoClickers = autoClickers + 1;
@@ -115,7 +138,7 @@ function App() {
   };
 
   const ultraRebirth = () => {
-    const required = 250000 * Math.pow(2, ultraRebirths);
+    const required = getUltraRebirthCost(ultraRebirths);
     if (count >= required) {
       playPhoneRing();
       setCount(0);
@@ -159,7 +182,7 @@ function App() {
       <div className='maincontent'>
         <div className='headerContainer'>
           <strong id='item1'>Talking Ben Clicker by Scott</strong>
-          <div id='item2'>(Please kill me)</div>
+          <div id='item2'>(version 1.0.5)</div>
         </div>
 
 
@@ -191,8 +214,8 @@ function App() {
             <BenClickControls
               onBuyMultiplier={buyMultiplier}
               onBuyAutoClicker={buyAutoClicker}
-              multiplierCost={formatNumber(Math.floor(40 + Math.pow(multiplier, 1.5) * 10))}
-              autoClickerCost={formatNumber(Math.floor(80 + Math.pow(autoClickers, 1.4) * 20))}
+              multiplierCost={formatNumber(multiplierCost())}
+              autoClickerCost={formatNumber(autoClickerCost())}
             />
 
             {screenWidth >= 1025 && (
@@ -228,7 +251,7 @@ function App() {
         <div className='phoneContainer'>
           <button className='phoneButton' onClick={ultraRebirth}>
             <img src={Phone} alt='phone' />
-            <div>Ultra Rebirth ({formatNumber(250000 * Math.pow(2, ultraRebirths))})</div>
+            <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))})</div>
           </button>
         </div>
       </div>
