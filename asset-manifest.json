@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ReactBen/static/css/main.cdda0a04.css",
-    "main.js": "/ReactBen/static/js/main.a1d122ad.js",
+    "main.css": "/ReactBen/static/css/main.c82279e9.css",
+    "main.js": "/ReactBen/static/js/main.c4c011c0.js",
     "static/js/453.99f93d73.chunk.js": "/ReactBen/static/js/453.99f93d73.chunk.js",
     "static/media/BenRoom.jpg": "/ReactBen/static/media/BenRoom.05306e0fe8bb5cdd9ff6.jpg",
     "static/media/phone.png": "/ReactBen/static/media/phone.14536e157781e4824341.png",
     "index.html": "/ReactBen/index.html",
-    "main.cdda0a04.css.map": "/ReactBen/static/css/main.cdda0a04.css.map",
-    "main.a1d122ad.js.map": "/ReactBen/static/js/main.a1d122ad.js.map",
+    "main.c82279e9.css.map": "/ReactBen/static/css/main.c82279e9.css.map",
+    "main.c4c011c0.js.map": "/ReactBen/static/js/main.c4c011c0.js.map",
     "453.99f93d73.chunk.js.map": "/ReactBen/static/js/453.99f93d73.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cdda0a04.css",
-    "static/js/main.a1d122ad.js"
+    "static/css/main.c82279e9.css",
+    "static/js/main.c4c011c0.js"
   ]
 }
