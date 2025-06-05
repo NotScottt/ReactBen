@@ -1,6 +1,5 @@
 import './App.css';
 import Background from "./assets/BenRoom.jpg"
-import Ben from "./assets/BenFigure.png"
 import useScreenSize from './functionality/ScreenSize';
 import Phone from "./assets/phone.png"
 
@@ -10,13 +9,20 @@ import { playPhoneRing } from './functionality/PhoneRing';
 import { useEffect, useState } from 'react';
 import BenClickControls from './functionality/BenClickControls';
 import { formatNumber } from './functionality/NumberFormatter';
+import { SkinPicker } from './functionality/SkinPicker';
 
 function App() {
   const moveMent = useBenMovement();
   const screenSize = useScreenSize();
   const screenWidth = screenSize["width"];
   const benSound = new Audio("assets/sounds/ben.mp3");
-  const [benMoveTrue, setBenMoveTrue] = useState(true)
+  const [benMoveTrue, setBenMoveTrue] = useState(
+    JSON.parse(localStorage.getItem('benMoveTrue')) ?? true
+  );
+
+  const [playSound, setPlaySound] = useState(
+    JSON.parse(localStorage.getItem('benSound')) ?? true
+  );
 
   const x = -50;
   const y = -65;
@@ -28,6 +34,17 @@ function App() {
   const [multiplier, setMultiplier] = useState(1);
   const [autoClickers, setAutoClickers] = useState(0);
   const [ultraRebirths, setUltraRebirths] = useState(0);
+
+  const deleteSave = () => {
+    setCount(0);
+    setMultiplier(1);
+    setAutoClickers(0);
+    setUltraRebirths(0);
+    localStorage.removeItem('benClickerSave');
+    localStorage.removeItem('benMoveTrue');
+    setBenMoveTrue(true);
+    alert("Dein Spielstand wurde gelöscht!");
+  }
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('benClickerSave'));
@@ -65,7 +82,8 @@ function App() {
   }, [autoClickers, multiplier, ultraRebirths]);
 
   const handleClick = () => {
-    benSound.play();
+    console.log(SkinPicker(ultraRebirths))
+    if (playSound) { benSound.play(); }
     const gain = multiplier * (ultraRebirths + 1);
     setCount(prev => {
       const updated = prev + gain;
@@ -75,7 +93,7 @@ function App() {
   };
 
   const buyMultiplier = () => {
-    const cost = Math.floor(50 * Math.pow(1.5, multiplier - 1));
+    const cost = Math.floor(40 + Math.pow(multiplier, 1.5) * 10);
     if (count >= cost) {
       const newCount = count - cost;
       const newMultiplier = multiplier + 1;
@@ -86,7 +104,7 @@ function App() {
   };
 
   const buyAutoClicker = () => {
-    const cost = Math.floor(100 * Math.pow(1.3, autoClickers));
+    const cost = Math.floor(80 + Math.pow(autoClickers, 1.4) * 20);
     if (count >= cost) {
       const newCount = count - cost;
       const newAutoClickers = autoClickers + 1;
@@ -99,6 +117,7 @@ function App() {
   const ultraRebirth = () => {
     const required = (ultraRebirths + 1) * 250000;
     if (count >= required) {
+      playPhoneRing();
       setCount(0);
       setMultiplier(1);
       setAutoClickers(0);
@@ -113,6 +132,26 @@ function App() {
     }
   };
 
+  const benMoveToggle = () => {
+    setBenMoveTrue(prev => {
+      const newValue = !prev;
+      localStorage.setItem('benMoveTrue', JSON.stringify(newValue));
+      return newValue;
+    });
+  };
+
+  useEffect(() => {
+    localStorage.setItem('benMoveTrue', JSON.stringify(benMoveTrue));
+  }, [benMoveTrue]);
+
+
+  const benSoundToggle = () => {
+    setPlaySound(prev => {
+      const newValue = !prev;
+      localStorage.setItem('benSound', JSON.stringify(newValue));
+      return newValue;
+    });
+  }
 
 
   return (
@@ -132,7 +171,7 @@ function App() {
 
             {/* <div className='figure' style={screenWidth >= 1025 ? staticMovement : staticMovement}> */}
             <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
-              <img className="benFigure" src={Ben} alt='ben' onClick={handleClick}></img>
+              <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben' onClick={handleClick}></img>
             </div>
           </div>
 
@@ -146,12 +185,14 @@ function App() {
             <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
             <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
             <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)}</strong></div>
-
+            <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1))}</strong></div>
+            <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1))}</strong></div>
+            <br />
             <BenClickControls
               onBuyMultiplier={buyMultiplier}
               onBuyAutoClicker={buyAutoClicker}
-              multiplierCost={Math.floor(50 * Math.pow(1.5, multiplier - 1))}
-              autoClickerCost={Math.floor(100 * Math.pow(1.3, autoClickers))}
+              multiplierCost={formatNumber(Math.floor(40 + Math.pow(multiplier, 1.5) * 10))}
+              autoClickerCost={formatNumber(Math.floor(80 + Math.pow(autoClickers, 1.4) * 20))}
             />
 
             {screenWidth >= 1025 && (
@@ -164,10 +205,21 @@ function App() {
                     type="checkbox"
                     id="benToggle"
                     checked={!benMoveTrue}
-                    onChange={() => setBenMoveTrue(prev => !prev)}
+                    onChange={benMoveToggle}
                   />
                   <label htmlFor="benToggle">Ben Bewegung deaktivieren</label>
                 </div>
+
+                <div>
+                  <input
+                    type="checkbox"
+                    id="soundToggle"
+                    checked={!playSound}
+                    onChange={benSoundToggle}
+                  />
+                  <label htmlFor="soundToggle">Ben Sound deaktivieren</label>
+                </div>
+                <p><button id="deleteButton" onClick={deleteSave}>Spielstand löschen</button></p>
               </>
             )}
           </div>
