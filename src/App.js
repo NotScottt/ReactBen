@@ -115,7 +115,7 @@ function App() {
   };
 
   const ultraRebirth = () => {
-    const required = (ultraRebirths + 1) * 250000;
+    const required = 250000 * Math.pow(2, ultraRebirths);
     if (count >= required) {
       playPhoneRing();
       setCount(0);
@@ -158,7 +158,7 @@ function App() {
     <>
       <div className='maincontent'>
         <div className='headerContainer'>
-          <strong id='item1'>Talking Ben by Scott</strong>
+          <strong id='item1'>Talking Ben Clicker by Scott</strong>
           <div id='item2'>(Please kill me)</div>
         </div>
 
@@ -177,7 +177,7 @@ function App() {
 
           <div className='statsContainer'>
             {screenWidth >= 1025 ? (
-              <h1>Ben Clicker Stats</h1>
+              <h2>Ben Clicker Stats</h2>
             ) : (
               <h3>Ben Clicker Stats</h3>
             )}
@@ -228,7 +228,7 @@ function App() {
         <div className='phoneContainer'>
           <button className='phoneButton' onClick={ultraRebirth}>
             <img src={Phone} alt='phone' />
-            <div>Ultra Rebirth ({formatNumber((ultraRebirths + 1) * 250000)})</div>
+            <div>Ultra Rebirth ({formatNumber(250000 * Math.pow(2, ultraRebirths))})</div>
           </button>
         </div>
       </div>

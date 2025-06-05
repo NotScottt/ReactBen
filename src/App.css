@@ -24,7 +24,7 @@
 }
 
 #item1 {
-  font-size: 50px;
+  font-size: 20px;
 }
 
 #item2 {
@@ -40,7 +40,7 @@
 
 .statsContainer {
   position: absolute;
-  top: 15%;
+  top: 5%;
   left: 83%;
   display: flex;
   flex-direction: column;
@@ -133,7 +133,7 @@
   }
 
   #item1 {
-    font-size: 35px;
+    font-size: 15px;
   }
 
   #item2 {

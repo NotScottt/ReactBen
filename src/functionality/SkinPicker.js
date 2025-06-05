@@ -6,6 +6,10 @@ export function SkinPicker(rebirtLevel) {
         'assets/BenSkins/PencilBen.png',
         'assets/BenSkins/StonedBen.png',
         'assets/BenSkins/MusicBen.png',
+        'assets/BenSkins/LegoBen.png',
+        'assets/BenSkins/GoldenBen.png',
+        'assets/BenSkins/DiamondBen.png',
+        'assets/BenSkins/UltimateBen.png',
     ]
 
     for (let index = 0; index < skinsSrc.length; index++) {
