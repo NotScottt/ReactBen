@@ -25,6 +25,10 @@ function App() {
     JSON.parse(localStorage.getItem('benSound')) ?? true
   );
 
+  const [holdable, setHoldable] = useState(
+    JSON.parse(localStorage.getItem('holdable')) ?? true
+  );
+
   const x = -50;
   const y = -65;
   const staticMovement = {
@@ -177,17 +181,20 @@ function App() {
     });
   }
 
-  const test = () => {
-    console.log("test")
+  const holdToggler = () => {
+    setHoldable(prev => {
+      const newValue = !prev;
+      localStorage.setItem('holdable', JSON.stringify(newValue));
+      return newValue;
+    });
   }
-
 
   return (
     <>
       <div className='maincontent'>
         <div className='headerContainer'>
           <strong id='item1'>Talking Ben Clicker by Scott</strong>
-          <div id='item2'>(version 1.0.5)</div>
+          <div id='item2'>(version 1.1.0 please kill me)</div>
         </div>
 
 
@@ -198,9 +205,13 @@ function App() {
             </div>
 
             <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
-              <HoldButton onHold={handleClick} interval={50} buttonClass={"holdButton"} children={
-                <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben'></img>
-              } />
+              {holdable ? (
+                <HoldButton onHold={handleClick} interval={50} buttonClass={"holdButton"} children={
+                  <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben' draggable="false"></img>
+                } />
+              ) : (
+                <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben' onClick={handleClick} draggable="false"></img>
+              )}
             </div>
 
           </div>
@@ -246,6 +257,16 @@ function App() {
                     onChange={benSoundToggle}
                   />
                   <label htmlFor="soundToggle">Ben Sound deaktivieren</label>
+                </div>
+
+                <div>
+                  <input
+                    type="checkbox"
+                    id="holdToggle"
+                    checked={!holdable}
+                    onChange={holdToggler}
+                  />
+                  <label htmlFor="holdToggle">Holdable Klick deaktivieren</label>
                 </div>
                 <p><button id="deleteButton" onClick={deleteSave}>Spielstand löschen</button></p>
               </>
