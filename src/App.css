@@ -175,13 +175,19 @@
 }
 
 @media only screen and (min-width: 601px) {
-  .statsContainer {
-    position: absolute;
-    top: 5%;
-    left: 83%;
+  .statsContainer,
+  .skinContainer {
+    width: 25%;
+  }
+
+  .statsWrapper,
+  .skinWrapper {
+    width: 80%;
+    margin: auto;
+  }
+
+  .benWrapper {
     display: flex;
-    flex-direction: column;
-    text-align: left;
   }
 
   /* .holdButton {

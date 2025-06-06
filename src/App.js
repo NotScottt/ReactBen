@@ -11,6 +11,8 @@ import { formatNumber } from './functionality/NumberFormatter';
 import { SkinPicker } from './functionality/SkinPicker';
 import { useEffect, useState } from 'react';
 import HoldButton from './functionality/HoldButton';
+import { ReturnSkins } from './functionality/ReturnSkins';
+import Skinlocker from './functionality/SkinLocker';
 
 
 function App() {
@@ -100,17 +102,34 @@ function App() {
     });
   };
 
-  const multiplierCost = () => {
-    const base = 40 + Math.pow(multiplier, 1.3) * 10;
-    const rebirthFactor = 1 + ultraRebirths * 0.05; // +5% pro Rebirth
+  const multiplierCost = (level = multiplier) => {
+    const base = 40 + Math.pow(level, 1.3) * 10;
+    const rebirthFactor = 1 + ultraRebirths * 0.05;
     return Math.floor(base * rebirthFactor);
   };
 
-  const autoClickerCost = () => {
-    const base = 80 + Math.pow(autoClickers, 1.2) * 20;
-    const rebirthFactor = 1 + ultraRebirths * 0.05; // +5% pro Rebirth
+  const autoClickerCost = (level = autoClickers) => {
+    const base = 80 + Math.pow(level, 1.2) * 20;
+    const rebirthFactor = 1 + ultraRebirths * 0.05;
     return Math.floor(base * rebirthFactor);
   };
+
+  const totalMultiplierCost = (amount) => {
+    let cost = 0;
+    for (let i = 0; i < amount; i++) {
+      cost += multiplierCost(multiplier + i);
+    }
+    return cost;
+  };
+
+  const totalAutoClickerCost = (amount) => {
+    let cost = 0;
+    for (let i = 0; i < amount; i++) {
+      cost += autoClickerCost(autoClickers + i);
+    }
+    return cost;
+  };
+
 
 
   const getUltraRebirthCost = (ultraRebirths) => {
@@ -146,6 +165,56 @@ function App() {
       saveGame({ count: newCount, autoClickers: newAutoClickers });
     }
   };
+
+
+  const buyMultiplierX5 = () => {
+    const cost = totalMultiplierCost(5);
+    if (count >= cost) {
+      const newCount = count - cost;
+      const newMultiplier = multiplier + 5;
+      setCount(newCount);
+      setMultiplier(newMultiplier);
+      saveGame({ count: newCount, multiplier: newMultiplier });
+    }
+  };
+
+
+  const buyMultiplierX10 = () => {
+    let totalCost = 0;
+    for (let i = 0; i < 10; i++) {
+      totalCost += multiplierCost(multiplier + i);
+    }
+    if (count >= totalCost) {
+      setCount(count - totalCost);
+      setMultiplier(multiplier + 10);
+      saveGame({ count: count - totalCost, multiplier: multiplier + 10 });
+    }
+  };
+
+  const buyAutoClickerX5 = () => {
+    let totalCost = 0;
+    for (let i = 0; i < 5; i++) {
+      totalCost += autoClickerCost(autoClickers + i);
+    }
+    if (count >= totalCost) {
+      setCount(count - totalCost);
+      setAutoClickers(autoClickers + 5);
+      saveGame({ count: count - totalCost, autoClickers: autoClickers + 5 });
+    }
+  };
+
+  const buyAutoClickerX10 = () => {
+    let totalCost = 0;
+    for (let i = 0; i < 10; i++) {
+      totalCost += autoClickerCost(autoClickers + i);
+    }
+    if (count >= totalCost) {
+      setCount(count - totalCost);
+      setAutoClickers(autoClickers + 10);
+      saveGame({ count: count - totalCost, autoClickers: autoClickers + 10 });
+    }
+  };
+
 
   const ultraRebirth = () => {
     const required = getUltraRebirthCost(ultraRebirths);
@@ -202,6 +271,17 @@ function App() {
     });
   }
 
+  const [selectedSkin, setSelectedSkin] = useState(
+    Number(localStorage.getItem('selectedSkin')) || 0
+  );
+
+  const handleSkinSelect = (index) => {
+    setSelectedSkin(index);
+    localStorage.setItem('selectedSkin', index);
+  };
+
+  const skins = ReturnSkins();
+
   return (
     <>
       <div className='maincontent'>
@@ -212,6 +292,17 @@ function App() {
 
 
         <div className='benWrapper'>
+          <div className='skinContainer'>
+            <div className='skinWrapper'>
+              {screenWidth >= 1025 &&
+                <>
+                  <h2>Ben Skins</h2>
+                  <Skinlocker skins={skins} rebirthLevel={ultraRebirths} onSkinSelect={handleSkinSelect} />
+                </>
+              }
+            </div>
+          </div>
+
           <div className='gameContainer'>
             <div className='background'>
               <img src={Background} alt='ben'></img>
@@ -220,70 +311,81 @@ function App() {
             <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
               {holdable ? (
                 <HoldButton onHold={handleClick} interval={50} buttonClass={"holdButton"} children={
-                  <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben' draggable="false"></img>
+                  <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' draggable="false" />
                 } />
               ) : (
-                <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben' onClick={handleClick} draggable="false"></img>
+                // <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben'  draggable="false"></img>
+                <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' onClick={handleClick} draggable="false" />
+
               )}
             </div>
 
           </div>
 
           <div className='statsContainer'>
-            {screenWidth >= 1025 &&
-              <h2>Ben Clicker Stats</h2>
-            }
-            <div>Bens: <strong>{formatNumber(count)}</strong></div>
-            <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
-            <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
-            <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)}</strong></div>
-            <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1))}</strong></div>
-            <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1))}</strong></div>
-            <br />
-            <BenClickControls
-              onBuyMultiplier={buyMultiplier}
-              onBuyAutoClicker={buyAutoClicker}
-              multiplierCost={formatNumber(multiplierCost())}
-              autoClickerCost={formatNumber(autoClickerCost())}
-              rainbowText={rainbow}
-            />
+            <div className='statsWrapper'>
+              {screenWidth >= 1025 &&
+                <h2>Ben Clicker Stats</h2>
+              }
+              <div>Bens: <strong>{formatNumber(count)}</strong></div>
+              <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
+              <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
+              <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)}</strong></div>
+              <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1))}</strong></div>
+              <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1))}</strong></div>
 
-            {screenWidth >= 1025 && (
-              <>
-                <br /><br /><br /><br />
+              <br />
+              <BenClickControls
+                onBuyMultiplier={buyMultiplier}
+                onBuyMultiplierX5={buyMultiplierX5}
+                onBuyMultiplierX10={buyMultiplierX10}
+                onBuyAutoClicker={buyAutoClicker}
+                onBuyAutoClickerX5={buyAutoClickerX5}
+                onBuyAutoClickerX10={buyAutoClickerX10}
+                multiplierCost={formatNumber(multiplierCost())}
+                autoClickerCost={formatNumber(autoClickerCost())}
+                totalMultiplierCostX5={totalMultiplierCost(5)}
+                totalMultiplierCostX10={totalMultiplierCost(10)}
+                totalAutoClickerCostX5={totalAutoClickerCost(5)}
+                totalAutoClickerCostX10={totalAutoClickerCost(10)}
+                rainbowText={rainbow}
+              />
 
-                <h1>Einstellungen</h1>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="benToggle"
-                    checked={!benMoveTrue}
-                    onChange={benMoveToggle}
-                  />
-                  <label htmlFor="benToggle">Ben Bewegung deaktivieren</label>
-                </div>
 
-                <div>
-                  <input
-                    type="checkbox"
-                    id="soundToggle"
-                    checked={!playSound}
-                    onChange={benSoundToggle}
-                  />
-                  <label htmlFor="soundToggle">Ben Sound deaktivieren</label>
-                </div>
+              {screenWidth >= 1025 && (
+                <>
+                  <h2>Einstellungen</h2>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="benToggle"
+                      checked={!benMoveTrue}
+                      onChange={benMoveToggle}
+                    />
+                    <label htmlFor="benToggle">Ben Bewegung deaktivieren</label>
+                  </div>
 
-                <div>
-                  <input
-                    type="checkbox"
-                    id="holdToggle"
-                    checked={!holdable}
-                    onChange={holdToggler}
-                  />
-                  <label htmlFor="holdToggle">Holdable Klick deaktivieren</label>
-                </div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="soundToggle"
+                      checked={!playSound}
+                      onChange={benSoundToggle}
+                    />
+                    <label htmlFor="soundToggle">Ben Sound deaktivieren</label>
+                  </div>
 
-                <div>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="holdToggle"
+                      checked={!holdable}
+                      onChange={holdToggler}
+                    />
+                    <label htmlFor="holdToggle">Holdable Klick deaktivieren</label>
+                  </div>
+
+                  {/* <div>
                   <input
                     type="checkbox"
                     id="rainbowToggle"
@@ -291,10 +393,11 @@ function App() {
                     onChange={rainbowToggler}
                   />
                   <label htmlFor="rainbowToggle">Rainbow Text deaktivieren</label>
-                </div>
-                <p><button id="deleteButton" onClick={deleteSave}>Spielstand löschen</button></p>
-              </>
-            )}
+                </div> */}
+                  <p><button id="deleteButton" onClick={deleteSave}>Spielstand löschen</button></p>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
