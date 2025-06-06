@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ReactBen/static/css/main.dfcb5f90.css",
+    "main.css": "/ReactBen/static/css/main.7515f4cd.css",
     "main.js": "/ReactBen/static/js/main.a860d0f5.js",
     "static/js/453.99f93d73.chunk.js": "/ReactBen/static/js/453.99f93d73.chunk.js",
     "static/media/BenRoom.jpg": "/ReactBen/static/media/BenRoom.05306e0fe8bb5cdd9ff6.jpg",
     "static/media/phone.png": "/ReactBen/static/media/phone.14536e157781e4824341.png",
     "index.html": "/ReactBen/index.html",
-    "main.dfcb5f90.css.map": "/ReactBen/static/css/main.dfcb5f90.css.map",
+    "main.7515f4cd.css.map": "/ReactBen/static/css/main.7515f4cd.css.map",
     "main.a860d0f5.js.map": "/ReactBen/static/js/main.a860d0f5.js.map",
     "453.99f93d73.chunk.js.map": "/ReactBen/static/js/453.99f93d73.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dfcb5f90.css",
+    "static/css/main.7515f4cd.css",
     "static/js/main.a860d0f5.js"
   ]
 }
