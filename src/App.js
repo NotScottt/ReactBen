@@ -30,6 +30,10 @@ function App() {
     JSON.parse(localStorage.getItem('holdable')) ?? true
   );
 
+  const [rainbow, setRainbow] = useState(
+    JSON.parse(localStorage.getItem('rainbow')) ?? false
+  );
+
   const x = -50;
   const y = -65;
   const staticMovement = {
@@ -190,6 +194,14 @@ function App() {
     });
   }
 
+  const rainbowToggler = () => {
+    setRainbow(prev => {
+      const newValue = !prev;
+      localStorage.setItem('rainbow', JSON.stringify(newValue));
+      return newValue;
+    });
+  }
+
   return (
     <>
       <div className='maincontent'>
@@ -233,6 +245,7 @@ function App() {
               onBuyAutoClicker={buyAutoClicker}
               multiplierCost={formatNumber(multiplierCost())}
               autoClickerCost={formatNumber(autoClickerCost())}
+              rainbowText={rainbow}
             />
 
             {screenWidth >= 1025 && (
@@ -268,6 +281,16 @@ function App() {
                     onChange={holdToggler}
                   />
                   <label htmlFor="holdToggle">Holdable Klick deaktivieren</label>
+                </div>
+
+                <div>
+                  <input
+                    type="checkbox"
+                    id="rainbowToggle"
+                    checked={!rainbow}
+                    onChange={rainbowToggler}
+                  />
+                  <label htmlFor="rainbowToggle">Rainbow Text deaktivieren</label>
                 </div>
                 <p><button id="deleteButton" onClick={deleteSave}>Spielstand löschen</button></p>
               </>

@@ -6,22 +6,38 @@ export default function BenClickerControls({
     onBuyAutoClicker,
     multiplierCost,
     autoClickerCost,
+    rainbowText
 }) {
     return (
         <div className='benClickControls'>
             <button onClick={onBuyMultiplier}>
-                Multiplier (
-                <RainbowText children={
-                    `${formatNumber(multiplierCost)} Bens`
-                }/>
-                )
+                {rainbowText ? (
+                    <>
+                        Multiplier (
+                        <RainbowText children={
+                            `${formatNumber(multiplierCost)} Bens`
+                        }
+                        />)
+                    </>
+                ) : (
+                    <>{`Multiplier (${formatNumber(multiplierCost)} Bens`})</>
+
+                )}
+
             </button>
             <button onClick={onBuyAutoClicker}>
-                Auto Benclicker (
-                <RainbowText children={
-                    `${formatNumber(autoClickerCost)} Bens`
-                }/>
-                )
+                {rainbowText ? (
+                    <>
+                        Auto Benclicker (
+                        <RainbowText children={
+                            `${formatNumber(autoClickerCost)} Bens`
+                        } />
+                        )
+                    </>
+                ) : (
+                    <>{`Auto Benclicker (${formatNumber(autoClickerCost)} Bens`})</>
+
+                )}
             </button>
         </div>
     );

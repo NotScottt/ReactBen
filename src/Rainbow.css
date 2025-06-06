@@ -14,7 +14,7 @@
   background-size: 800% 800%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 5s linear infinite;
+  animation: shimmer 1s linear infinite;
 }
 
 @keyframes shimmer {
