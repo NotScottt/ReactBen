@@ -1,4 +1,5 @@
 import './App.css';
+import './Rainbow.css';
 import Background from "./assets/BenRoom.jpg"
 import useScreenSize from './functionality/ScreenSize';
 import Phone from "./assets/phone.png"

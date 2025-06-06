@@ -1,4 +1,5 @@
 import { formatNumber } from "./NumberFormatter";
+import RainbowText from "./RainbowText";
 
 export default function BenClickerControls({
     onBuyMultiplier,
@@ -9,10 +10,18 @@ export default function BenClickerControls({
     return (
         <div className='benClickControls'>
             <button onClick={onBuyMultiplier}>
-                Multiplier ({formatNumber(multiplierCost)} Bens)
+                Multiplier (
+                <RainbowText children={
+                    `${formatNumber(multiplierCost)} Bens`
+                }/>
+                )
             </button>
             <button onClick={onBuyAutoClicker}>
-                Auto Benclicker ({formatNumber(autoClickerCost)} Bens)
+                Auto Benclicker (
+                <RainbowText children={
+                    `${formatNumber(autoClickerCost)} Bens`
+                }/>
+                )
             </button>
         </div>
     );
