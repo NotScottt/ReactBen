@@ -32,9 +32,9 @@ function App() {
     JSON.parse(localStorage.getItem('holdable')) ?? true
   );
 
-  const [rainbow, setRainbow] = useState(
-    JSON.parse(localStorage.getItem('rainbow')) ?? false
-  );
+  // const [rainbow, setRainbow] = useState(
+  //   JSON.parse(localStorage.getItem('rainbow')) ?? false
+  // );
 
   const x = -50;
   const y = -65;
@@ -308,13 +308,13 @@ function App() {
     });
   }
 
-  const rainbowToggler = () => {
-    setRainbow(prev => {
-      const newValue = !prev;
-      localStorage.setItem('rainbow', JSON.stringify(newValue));
-      return newValue;
-    });
-  }
+  // const rainbowToggler = () => {
+  //   setRainbow(prev => {
+  //     const newValue = !prev;
+  //     localStorage.setItem('rainbow', JSON.stringify(newValue));
+  //     return newValue;
+  //   });
+  // }
 
   const [selectedSkin, setSelectedSkin] = useState(
     Number(localStorage.getItem('selectedSkin')) || 0
@@ -406,7 +406,7 @@ function App() {
                 totalAutoClickerCostX10={formatNumber(totalAutoClickerCost(10))}
                 totalAutoClickerCostX100={formatNumber(totalAutoClickerCost(100))}
                 totalAutoClickerCostX1000={formatNumber(totalAutoClickerCost(1000))}
-                rainbowText={rainbow}
+                // rainbowText={rainbow}
               />
 
               {screenWidth >= 1025 && (
