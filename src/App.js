@@ -54,6 +54,7 @@ function App() {
     setUltraRebirths(0);
     localStorage.removeItem('benClickerSave');
     localStorage.removeItem('benMoveTrue');
+    localStorage.removeItem('selectedSkin');
     alert("Dein Spielstand wurde gelöscht!");
   }
 
@@ -191,6 +192,29 @@ function App() {
     }
   };
 
+  const buyMultiplierX100 = () => {
+    const cost = totalMultiplierCost(100);
+    if (count >= cost) {
+      const newCount = count - cost;
+      const newMultiplier = multiplier + 100;
+      setCount(newCount);
+      setMultiplier(newMultiplier);
+      saveGame({ count: newCount, multiplier: newMultiplier });
+    }
+  };
+
+  const buyMultiplierX1000 = () => {
+    const cost = totalMultiplierCost(1000);
+    if (count >= cost) {
+      const newCount = count - cost;
+      const newMultiplier = multiplier + 1000;
+      setCount(newCount);
+      setMultiplier(newMultiplier);
+      saveGame({ count: newCount, multiplier: newMultiplier });
+    }
+  };
+
+
   const buyAutoClickerX5 = () => {
     let totalCost = 0;
     for (let i = 0; i < 5; i++) {
@@ -215,6 +239,27 @@ function App() {
     }
   };
 
+  const buyAutoClickerX100 = () => {
+    const totalCost = totalAutoClickerCost(100);
+    if (count >= totalCost) {
+      const newCount = count - totalCost;
+      const newAutoClickers = autoClickers + 100;
+      setCount(newCount);
+      setAutoClickers(newAutoClickers);
+      saveGame({ count: newCount, autoClickers: newAutoClickers });
+    }
+  };
+
+  const buyAutoClickerX1000 = () => {
+    const totalCost = totalAutoClickerCost(1000);
+    if (count >= totalCost) {
+      const newCount = count - totalCost;
+      const newAutoClickers = autoClickers + 1000;
+      setCount(newCount);
+      setAutoClickers(newAutoClickers);
+      saveGame({ count: newCount, autoClickers: newAutoClickers });
+    }
+  };
 
   const ultraRebirth = () => {
     const required = getUltraRebirthCost(ultraRebirths);
@@ -290,7 +335,6 @@ function App() {
           <div id='item2'>(version 1.1.0 please kill me)</div>
         </div>
 
-
         <div className='benWrapper'>
           <div className='skinContainer'>
             <div className='skinWrapper'>
@@ -304,22 +348,27 @@ function App() {
           </div>
 
           <div className='gameContainer'>
+            <div className='currentSkin'>Aktueller Skin: <strong>{skins[selectedSkin]?.description || "Standard Ben"}</strong></div>
             <div className='background'>
               <img src={Background} alt='ben'></img>
             </div>
 
             <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
               {holdable ? (
-                <HoldButton onHold={handleClick} interval={50} buttonClass={"holdButton"} children={
-                  <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' draggable="false" />
-                } />
+                <HoldButton
+                  onHold={handleClick}
+                  interval={50}
+                  buttonClass={"holdButton"}
+                  children={
+                    <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' draggable="false" />
+                  }
+                />
               ) : (
                 // <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben'  draggable="false"></img>
                 <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' onClick={handleClick} draggable="false" />
 
               )}
             </div>
-
           </div>
 
           <div className='statsContainer'>
@@ -327,6 +376,7 @@ function App() {
               {screenWidth >= 1025 &&
                 <h2>Ben Clicker Stats</h2>
               }
+
               <div>Bens: <strong>{formatNumber(count)}</strong></div>
               <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
               <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
@@ -339,18 +389,25 @@ function App() {
                 onBuyMultiplier={buyMultiplier}
                 onBuyMultiplierX5={buyMultiplierX5}
                 onBuyMultiplierX10={buyMultiplierX10}
+                onBuyMultiplierX100={buyMultiplierX100}
+                onBuyMultiplierX1000={buyMultiplierX1000}
                 onBuyAutoClicker={buyAutoClicker}
                 onBuyAutoClickerX5={buyAutoClickerX5}
                 onBuyAutoClickerX10={buyAutoClickerX10}
+                onBuyAutoClickerX100={buyAutoClickerX100}
+                onBuyAutoClickerX1000={buyAutoClickerX1000}
                 multiplierCost={formatNumber(multiplierCost())}
                 autoClickerCost={formatNumber(autoClickerCost())}
-                totalMultiplierCostX5={totalMultiplierCost(5)}
-                totalMultiplierCostX10={totalMultiplierCost(10)}
-                totalAutoClickerCostX5={totalAutoClickerCost(5)}
-                totalAutoClickerCostX10={totalAutoClickerCost(10)}
+                totalMultiplierCostX5={formatNumber(totalMultiplierCost(5))}
+                totalMultiplierCostX10={formatNumber(totalMultiplierCost(10))}
+                totalMultiplierCostX100={formatNumber(totalMultiplierCost(100))}
+                totalMultiplierCostX1000={formatNumber(totalMultiplierCost(1000))}
+                totalAutoClickerCostX5={formatNumber(totalAutoClickerCost(5))}
+                totalAutoClickerCostX10={formatNumber(totalAutoClickerCost(10))}
+                totalAutoClickerCostX100={formatNumber(totalAutoClickerCost(100))}
+                totalAutoClickerCostX1000={formatNumber(totalAutoClickerCost(1000))}
                 rainbowText={rainbow}
               />
-
 
               {screenWidth >= 1025 && (
                 <>

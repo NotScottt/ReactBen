@@ -1,3 +1,4 @@
+// filepath: [SkinLocker.js](http://_vscodecontentref_/1)
 const Skinlocker = ({ skins, rebirthLevel, onSkinSelect }) => {
     const skinElements = skins.map((skin, index) => {
         const unlocked = index <= rebirthLevel;
@@ -14,8 +15,9 @@ const Skinlocker = ({ skins, rebirthLevel, onSkinSelect }) => {
                 onClick={() => unlocked && onSkinSelect && onSkinSelect(index)}
             >
                 <img
-                    src={skin}
+                    src={skin.src}
                     alt={`Ben Skin ${index + 1}`}
+                    title={skin.description}
                     className={`benSkinImage${index}`}
                     draggable="false"
                     style={{
@@ -34,7 +36,7 @@ const Skinlocker = ({ skins, rebirthLevel, onSkinSelect }) => {
                             left: 0,
                             width: "100%",
                             height: "100%",
-                            background: "rgba(0,0,0,0.4)",
+                            background: "rgba(0, 105, 91, 0.96)",
                             color: "#fff",
                             display: "flex",
                             alignItems: "center",

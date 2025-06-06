@@ -180,6 +180,10 @@
     width: 25%;
   }
 
+  .currentSkin {
+    margin-bottom: 10px;
+  }
+
   .statsWrapper,
   .skinWrapper {
     width: 80%;

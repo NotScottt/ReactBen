@@ -1,44 +1,73 @@
-import { formatNumber } from "./NumberFormatter";
-import RainbowText from "./RainbowText";
+import React from "react";
 
-export default function BenClickerControls({
-    onBuyMultiplier,
-    onBuyMultiplierX5,
-    onBuyMultiplierX10,
-    onBuyAutoClicker,
-    onBuyAutoClickerX5,
-    onBuyAutoClickerX10,
-    totalMultiplierCostX5,
-    totalMultiplierCostX10,
-    totalAutoClickerCostX5,
-    totalAutoClickerCostX10,
-    multiplierCost,
-    autoClickerCost,
-    rainbowText,
+function BenClickControls({
+  onBuyMultiplier,
+  onBuyMultiplierX5,
+  onBuyMultiplierX10,
+  onBuyMultiplierX100,
+  onBuyMultiplierX1000,
+  onBuyAutoClicker,
+  onBuyAutoClickerX5,
+  onBuyAutoClickerX10,
+  onBuyAutoClickerX100,
+  onBuyAutoClickerX1000,
+  multiplierCost,
+  autoClickerCost,
+  totalMultiplierCostX5,
+  totalMultiplierCostX10,
+  totalMultiplierCostX100,
+  totalMultiplierCostX1000,
+  totalAutoClickerCostX5,
+  totalAutoClickerCostX10,
+  totalAutoClickerCostX100,
+  totalAutoClickerCostX1000,
+  rainbowText
 }) {
-    return (
-        <div className='benClickControls'>
-            <button onClick={onBuyMultiplier}>
-                x1 Multiplier ({multiplierCost})
-            </button>
-            <button onClick={onBuyMultiplierX5}>
-                x5 Multiplier ({formatNumber(totalMultiplierCostX5)})
-            </button>
-            <button onClick={onBuyMultiplierX10}>
-                x10 Multiplier ({formatNumber(totalMultiplierCostX10)})
-            </button>
+  return (
+    <div className="controls">
+      <h2 style={{ color: rainbowText ? "rainbow" : "inherit" }}>
+        Upgrades
+      </h2>
 
-            <button onClick={onBuyAutoClicker}>
-                x1 Auto Clicker ({autoClickerCost})
-            </button>
-            <button onClick={onBuyAutoClickerX5}>
-                x5 Auto Clicker ({formatNumber(totalAutoClickerCostX5)})
-            </button>
-            <button onClick={onBuyAutoClickerX10}>
-                x10 Auto Clicker ({formatNumber(totalAutoClickerCostX10)})
-            </button>
+      <div>
+        <h3>Multiplier</h3>
+        <button onClick={onBuyMultiplier}>
+          +1 Multiplier ({multiplierCost})
+        </button>
+        <button onClick={onBuyMultiplierX5}>
+          x5 Multiplier ({totalMultiplierCostX5})
+        </button>
+        <button onClick={onBuyMultiplierX10}>
+          x10 Multiplier ({totalMultiplierCostX10})
+        </button>
+        <button onClick={onBuyMultiplierX100}>
+          x100 Multiplier ({totalMultiplierCostX100})
+        </button>
+        <button onClick={onBuyMultiplierX1000}>
+          x1000 Multiplier ({totalMultiplierCostX1000})
+        </button>
+      </div>
 
-
-        </div>
-    );
+      <div>
+        <h3>Auto Clicker</h3>
+        <button onClick={onBuyAutoClicker}>
+          +1 Auto Clicker ({autoClickerCost})
+        </button>
+        <button onClick={onBuyAutoClickerX5}>
+          x5 Auto Clicker ({totalAutoClickerCostX5})
+        </button>
+        <button onClick={onBuyAutoClickerX10}>
+          x10 Auto Clicker ({totalAutoClickerCostX10})
+        </button>
+        <button onClick={onBuyAutoClickerX100}>
+          x100 Auto Clicker ({totalAutoClickerCostX100})
+        </button>
+        <button onClick={onBuyAutoClickerX1000}>
+          x1000 Auto Clicker ({totalAutoClickerCostX1000})
+        </button>
+      </div>
+    </div>
+  );
 }
+
+export default BenClickControls;
