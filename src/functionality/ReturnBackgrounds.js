@@ -4,6 +4,7 @@ export function ReturnBackgrounds() {
         { src: 'assets/Backgrounds/Dessert.jpg', multiplier: 2 },
         { src: 'assets/Backgrounds/Office.jpg', multiplier: 3 },
         { src: 'assets/Backgrounds/School.jpg', multiplier: 4 },
+        { src: 'assets/Backgrounds/Windows.jpg', multiplier: 5 },
     ]
 
     return RoomSrc;
