@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ReactBen/static/css/main.5d0e24e6.css",
-    "main.js": "/ReactBen/static/js/main.873f0018.js",
+    "main.css": "/ReactBen/static/css/main.821427ad.css",
+    "main.js": "/ReactBen/static/js/main.af4c962f.js",
     "static/js/453.99f93d73.chunk.js": "/ReactBen/static/js/453.99f93d73.chunk.js",
     "static/media/phone.png": "/ReactBen/static/media/phone.14536e157781e4824341.png",
     "index.html": "/ReactBen/index.html",
-    "main.5d0e24e6.css.map": "/ReactBen/static/css/main.5d0e24e6.css.map",
-    "main.873f0018.js.map": "/ReactBen/static/js/main.873f0018.js.map",
+    "main.821427ad.css.map": "/ReactBen/static/css/main.821427ad.css.map",
+    "main.af4c962f.js.map": "/ReactBen/static/js/main.af4c962f.js.map",
     "453.99f93d73.chunk.js.map": "/ReactBen/static/js/453.99f93d73.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5d0e24e6.css",
-    "static/js/main.873f0018.js"
+    "static/css/main.821427ad.css",
+    "static/js/main.af4c962f.js"
   ]
 }
