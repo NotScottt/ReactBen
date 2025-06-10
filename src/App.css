@@ -166,16 +166,20 @@
 
   }
 
-  /* .statsContainer {
-    left: 10%;
-    top: 74%;
+  .controls {
+    display: flex;
   }
 
-  .phoneContainer button {
-    width: 100px;
-    margin-left: 230px;
-    margin-top: 50px;
-  } */
+  .multiplierSection button,
+  .autoClickerSection button {
+    height: 50px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .statsWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
 
 .multiplierSection,
