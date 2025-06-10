@@ -6,21 +6,25 @@ function BenClickControls({
   onBuyMultiplierX10,
   onBuyMultiplierX100,
   onBuyMultiplierX1000,
+  onBuyMultiplierX10000,
   onBuyAutoClicker,
   onBuyAutoClickerX5,
   onBuyAutoClickerX10,
   onBuyAutoClickerX100,
   onBuyAutoClickerX1000,
+  onBuyAutoClickerX10000,
   multiplierCost,
   autoClickerCost,
   totalMultiplierCostX5,
   totalMultiplierCostX10,
   totalMultiplierCostX100,
   totalMultiplierCostX1000,
+  totalMultiplierCostX10000,
   totalAutoClickerCostX5,
   totalAutoClickerCostX10,
   totalAutoClickerCostX100,
   totalAutoClickerCostX1000,
+  totalAutoClickerCostX10000,
   rainbowText
 }) {
   return (
@@ -40,7 +44,10 @@ function BenClickControls({
           x100 Multiplier ({totalMultiplierCostX100})
         </button>
         <button onClick={onBuyMultiplierX1000}>
-          x1000 Multiplier ({totalMultiplierCostX1000})
+          x1.000 Multiplier ({totalMultiplierCostX1000})
+        </button>
+        <button onClick={onBuyMultiplierX10000}>
+          x10.000 Multiplier ({totalMultiplierCostX10000})
         </button>
       </div>
 
@@ -59,7 +66,10 @@ function BenClickControls({
           x100 Auto Clicker ({totalAutoClickerCostX100})
         </button>
         <button onClick={onBuyAutoClickerX1000}>
-          x1000 Auto Clicker ({totalAutoClickerCostX1000})
+          x1.000 Auto Clicker ({totalAutoClickerCostX1000})
+        </button>
+        <button onClick={onBuyAutoClickerX10000}>
+          x10.000 Auto Clicker ({totalAutoClickerCostX10000})
         </button>
       </div>
     </div>
