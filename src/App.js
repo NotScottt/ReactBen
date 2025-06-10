@@ -267,6 +267,7 @@ function App() {
       setCount(0);
       setMultiplier(1);
       setAutoClickers(0);
+      setSelectedSkin(selectedSkin + 1)
       const newRebirths = ultraRebirths + 1;
       setUltraRebirths(newRebirths);
       saveGame({
