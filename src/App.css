@@ -120,18 +120,16 @@
 
   .background img {
     /* width: 100vw; */
-    height: 30vh;
-    object-fit: cover;
-    display: block;
+    height: 35vh;
+    /* object-fit: cover; */
+    /* display: block; */
     user-select: none;
   }
 
-  .benFigure {
-    width: 100vw;
-    /* height: 50vh; */
-    object-fit: cover;
+  /* .benFigure {
+    height: 10% !important;
     display: block;
-  }
+  } */
 
   .figure {
     width: 100%;

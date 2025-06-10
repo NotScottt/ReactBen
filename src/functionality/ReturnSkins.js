@@ -30,6 +30,8 @@ export function ReturnSkins() {
         { src: 'assets/BenSkins/CrazyBen.png', description: "??? Ben" },
         { src: 'assets/BenSkins/PoliceBen.png', description: "Polizei Ben" },
         { src: 'assets/BenSkins/CrackBen.png', description: "Vercrackter Ben" },
+        { src: 'assets/BenSkins/VerklebtBen.png', description: "Verklebter Ben" },
+        { src: 'assets/BenSkins/GangsterBen.png', description: "Gangster Ben" },
         { src: 'assets/BenSkins/RichBen.png', description: "Reicher Ben" },
         { src: 'assets/BenSkins/EvilBen.png', description: "Evil Ben" },
         { src: 'assets/BenSkins/GoldenBen.png', description: "Golden Ben" },
