@@ -122,6 +122,17 @@
   margin-bottom: 20px;
 }
 
+.ultraUpgradeSection{
+  display: flex;
+  gap: 2px;
+  
+}
+
+.ultraUpgradeSection button {
+  height: fit-content;
+  width: fit-content !important;
+}
+
 @media only screen and (max-width: 600px) {
   .gameContainer {
     width: 100%;

@@ -11,7 +11,7 @@ export function ReturnSkins() {
         { src: 'assets/BenSkins/PartyBen.png', description: "Happy New Year 2008 Ben" },
         { src: 'assets/BenSkins/SenfBen.png', description: "Senf Ben" },
         { src: 'assets/BenSkins/BenBanane.png', description: "Bananen Ben" },
-        { src: 'assets/BenSkins/AmericanBen.png', description: "Amerikanischer Ben" },
+        { src: 'assets/BenSkins/AmericanBen.png', description: "Uncle Ben" },
         { src: 'assets/BenSkins/BratwurstBen.png', description: "Bratwurst Ben" },
         { src: 'assets/BenSkins/BenKatze.png', description: "Katzen Ben" },
         { src: 'assets/BenSkins/BenFortnite.png', description: "Fortnite Ben" },
