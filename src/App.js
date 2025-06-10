@@ -20,6 +20,7 @@ function App() {
   const screenSize = useScreenSize();
   const screenWidth = screenSize["width"];
   const benSound = new Audio("assets/sounds/ben.mp3");
+  const [showSkins, setShowSkins] = useState(false);
   const [benMoveTrue, setBenMoveTrue] = useState(
     JSON.parse(localStorage.getItem('benMoveTrue')) ?? true
   );
@@ -130,8 +131,6 @@ function App() {
     }
     return cost;
   };
-
-
 
   const getUltraRebirthCost = (ultraRebirths) => {
     let cost = 250000;
@@ -347,29 +346,40 @@ function App() {
             </div>
           </div>
 
-          <div className='gameContainer'>
-            <div className='currentSkin'>Aktueller Skin: <strong>{skins[selectedSkin]?.description || "Standard Ben"}</strong></div>
-            <div className='background'>
-              <img src={Background} alt='ben'></img>
+          <div className='gameContainerWrapper'>
+            <div className='gameContainer'>
+              <div className='currentSkin'>Aktueller Skin: <strong>{skins[selectedSkin]?.description || "Standard Ben"}</strong></div>
+              <div className='background'>
+                <img src={Background} alt='ben'></img>
+
+                <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
+                  {holdable ? (
+                    <HoldButton
+                      onHold={handleClick}
+                      interval={50}
+                      buttonClass={"holdButton"}
+                      children={
+                        <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' draggable="false" />
+                      }
+                    />
+                  ) : (
+                    // <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben'  draggable="false"></img>
+                    <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' onClick={handleClick} draggable="false" />
+                  )}
+                </div>
+              </div>
             </div>
 
-            <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
-              {holdable ? (
-                <HoldButton
-                  onHold={handleClick}
-                  interval={50}
-                  buttonClass={"holdButton"}
-                  children={
-                    <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' draggable="false" />
-                  }
-                />
-              ) : (
-                // <img className="benFigure" src={SkinPicker(ultraRebirths)} alt='ben'  draggable="false"></img>
-                <img className="benFigure" src={SkinPicker(selectedSkin)} alt='ben' onClick={handleClick} draggable="false" />
-
-              )}
-            </div>
+            {screenWidth >= 1025 && (
+              <div className='phoneContainer'>
+                <button className='phoneButton' onClick={ultraRebirth}>
+                  <img src={Phone} alt='phone' />
+                  <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))})</div>
+                </button>
+              </div>
+            )}
           </div>
+
 
           <div className='statsContainer'>
             <div className='statsWrapper'>
@@ -406,7 +416,7 @@ function App() {
                 totalAutoClickerCostX10={formatNumber(totalAutoClickerCost(10))}
                 totalAutoClickerCostX100={formatNumber(totalAutoClickerCost(100))}
                 totalAutoClickerCostX1000={formatNumber(totalAutoClickerCost(1000))}
-                // rainbowText={rainbow}
+              // rainbowText={rainbow}
               />
 
               {screenWidth >= 1025 && (
@@ -456,13 +466,27 @@ function App() {
               )}
             </div>
           </div>
-        </div>
 
-        <div className='phoneContainer'>
-          <button className='phoneButton' onClick={ultraRebirth}>
-            <img src={Phone} alt='phone' />
-            <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))})</div>
-          </button>
+
+          {screenWidth < 1025 &&
+            <>
+              <div className='phoneContainer'>
+                <button className='phoneButton' onClick={ultraRebirth}>
+                  <img src={Phone} alt='phone' />
+                  <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))})</div>
+                </button>
+              </div>
+
+              <button className='showSkinsButton' onClick={() => setShowSkins(!showSkins)}>{`Skins ${!showSkins ? "anzeigen" : "verbergen"}`}</button>
+              {showSkins &&
+                <div className='skinContainer'>
+                  <div className='skinWrapper'>
+                    <Skinlocker skins={skins} rebirthLevel={ultraRebirths} onSkinSelect={handleSkinSelect} />
+                  </div>
+                </div>
+              }
+            </>
+          }
         </div>
       </div>
     </>

@@ -23,13 +23,17 @@ function BenClickControls({
   totalAutoClickerCostX1000,
   rainbowText
 }) {
+  const screenSize = window.innerWidth;
+
   return (
     <div className="controls">
-      <h2 style={{ color: rainbowText ? "rainbow" : "inherit" }}>
-        Upgrades
-      </h2>
+      {screenSize >= 1025 &&
+        <h2 style={{ color: rainbowText ? "rainbow" : "inherit" }}>
+          Upgrades
+        </h2>
+      }
 
-      <div>
+      <div className="multiplierSection">
         <h3>Multiplier</h3>
         <button onClick={onBuyMultiplier}>
           +1 Multiplier ({multiplierCost})
@@ -48,7 +52,7 @@ function BenClickControls({
         </button>
       </div>
 
-      <div>
+      <div className="autoClickerSection">
         <h3>Auto Clicker</h3>
         <button onClick={onBuyAutoClicker}>
           +1 Auto Clicker ({autoClickerCost})
