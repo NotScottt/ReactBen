@@ -23,16 +23,8 @@ function BenClickControls({
   totalAutoClickerCostX1000,
   rainbowText
 }) {
-  const screenSize = window.innerWidth;
-
   return (
     <div className="controls">
-      {screenSize >= 1025 &&
-        <h2 style={{ color: rainbowText ? "rainbow" : "inherit" }}>
-          Upgrades
-        </h2>
-      }
-
       <div className="multiplierSection">
         <h3>Multiplier</h3>
         <button onClick={onBuyMultiplier}>

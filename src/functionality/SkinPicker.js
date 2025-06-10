@@ -1,10 +1,10 @@
 import { ReturnSkins } from "./ReturnSkins";
 
-export function SkinPicker(rebirtLevel) {
+export function SkinPicker(rebirthLevel) {
 
     const skinsSrc = ReturnSkins();
 
     for (let index = 0; index < skinsSrc.length; index++) {
-        return (skinsSrc[rebirtLevel]?.src || skinsSrc[0].src);
+        return (skinsSrc[rebirthLevel]?.src || skinsSrc[0].src);
     }
 }

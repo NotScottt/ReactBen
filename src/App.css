@@ -109,8 +109,17 @@
   user-select: none;
 }
 
-.showSkinsButton {
+/* .showSkinsButton {
   margin-bottom: 15px;
+} */
+
+.buttonsSectionMobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 600px) {

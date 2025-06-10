@@ -1,6 +1,6 @@
 import './App.css';
 import './Rainbow.css';
-import Background from "./assets/BenRoom.jpg"
+// import Background from "public/BenRoom.jpg"
 import useScreenSize from './functionality/ScreenSize';
 import Phone from "./assets/phone.png"
 import BenClickControls from './functionality/BenClickControls';
@@ -13,6 +13,9 @@ import { useEffect, useState } from 'react';
 import HoldButton from './functionality/HoldButton';
 import { ReturnSkins } from './functionality/ReturnSkins';
 import Skinlocker from './functionality/SkinLocker';
+import { BackgroundPicker } from './functionality/BackgroundPicker';
+import BackgroundLocker from './functionality/BackgroundLocker';
+import { ReturnBackgrounds } from './functionality/ReturnBackgrounds';
 
 
 function App() {
@@ -20,7 +23,14 @@ function App() {
   const screenSize = useScreenSize();
   const screenWidth = screenSize["width"];
   const benSound = new Audio("assets/sounds/ben.mp3");
+  const skins = ReturnSkins();
+  const backGrounds = ReturnBackgrounds();
   const [showSkins, setShowSkins] = useState(false);
+  const [showBackgrounds, setShowBackGrounds] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [switchBackground, setSwitchBackground] = useState(false)
+
+
   const [benMoveTrue, setBenMoveTrue] = useState(
     JSON.parse(localStorage.getItem('benMoveTrue')) ?? true
   );
@@ -47,6 +57,7 @@ function App() {
   const [multiplier, setMultiplier] = useState(1);
   const [autoClickers, setAutoClickers] = useState(0);
   const [ultraRebirths, setUltraRebirths] = useState(0);
+
 
   const deleteSave = () => {
     setCount(0);
@@ -80,23 +91,9 @@ function App() {
     localStorage.setItem('benClickerSave', JSON.stringify(data));
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (autoClickers > 0) {
-        const gained = autoClickers * multiplier * (ultraRebirths + 1);
-        setCount(prev => {
-          const updated = prev + gained;
-          saveGame({ count: updated });
-          return updated;
-        });
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [autoClickers, multiplier, ultraRebirths]);
-
   const handleClick = () => {
     if (playSound) { benSound.play(); }
-    const gain = multiplier * (ultraRebirths + 1);
+    const gain = multiplier * (ultraRebirths + 1) * backgroundMultiplier;
     setCount(prev => {
       const updated = prev + gain;
       saveGame({ count: updated });
@@ -213,7 +210,6 @@ function App() {
     }
   };
 
-
   const buyAutoClickerX5 = () => {
     let totalCost = 0;
     for (let i = 0; i < 5; i++) {
@@ -309,24 +305,50 @@ function App() {
     });
   }
 
-  // const rainbowToggler = () => {
-  //   setRainbow(prev => {
-  //     const newValue = !prev;
-  //     localStorage.setItem('rainbow', JSON.stringify(newValue));
-  //     return newValue;
-  //   });
-  // }
-
   const [selectedSkin, setSelectedSkin] = useState(
     Number(localStorage.getItem('selectedSkin')) || 0
   );
+
+  const [selectedBackground, setSelectedBackGround] = useState(
+    Number(localStorage.getItem('selectedBackground')) || 0
+  );
+
+  const backgroundMultiplier = backGrounds[selectedBackground]?.multiplier || 1;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (autoClickers > 0) {
+        const gained = autoClickers * multiplier * (ultraRebirths + 1) * backgroundMultiplier;
+        setCount(prev => {
+          const updated = prev + gained;
+          saveGame({ count: updated });
+          return updated;
+        });
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [autoClickers, multiplier, ultraRebirths, backgroundMultiplier]);
 
   const handleSkinSelect = (index) => {
     setSelectedSkin(index);
     localStorage.setItem('selectedSkin', index);
   };
 
-  const skins = ReturnSkins();
+  const handleBackgroundSelect = (index) => {
+    setSelectedBackGround(index);
+    localStorage.setItem('selectedBackground', index);
+  }
+
+  const handleSkinOptionClick = (event) => {
+    const clicked = event.target.id
+
+    if (clicked === "skinSetting") {
+      setSwitchBackground(false)
+    } else {
+      setSwitchBackground(true)
+    }
+  }
+
 
   return (
     <>
@@ -341,8 +363,24 @@ function App() {
             <div className='skinWrapper'>
               {screenWidth >= 1025 &&
                 <>
-                  <h2>Ben Skins</h2>
-                  <Skinlocker skins={skins} rebirthLevel={ultraRebirths} onSkinSelect={handleSkinSelect} />
+                  <button id='skinSetting' onClick={handleSkinOptionClick} >Skins</button>
+                  <button id='backgroundSetting' onClick={handleSkinOptionClick} >Hintergründe</button>
+
+                  {!switchBackground ? (
+                    <>
+                      <h2>Ben Skins</h2>
+                      <div> {ultraRebirths + 1} / {skins.length} freigeschaltet</div>
+                      <Skinlocker skins={skins} rebirthLevel={ultraRebirths} onSkinSelect={handleSkinSelect} />
+                    </>
+                  ) : (
+                    <>
+                      <h2>Ben Hintergründe</h2>
+                      <div> 1 / {backGrounds.length} freigeschaltet</div>
+                      <BackgroundLocker backgrounds={backGrounds} rebirthLevel={ultraRebirths} onBackgroundSelect={handleBackgroundSelect} />
+                    </>
+                  )}
+
+
                 </>
               }
             </div>
@@ -352,7 +390,7 @@ function App() {
             <div className='gameContainer'>
               <div className='currentSkin'>Aktueller Skin: <strong>{skins[selectedSkin]?.description || "Standard Ben"}</strong></div>
               <div className='background'>
-                <img src={Background} alt='ben'></img>
+                <img src={BackgroundPicker(selectedBackground)} alt='ben'></img>
 
                 <div className='figure' style={screenWidth >= 1025 && benMoveTrue ? moveMent : staticMovement}>
                   {holdable ? (
@@ -376,7 +414,7 @@ function App() {
               <div className='phoneContainer'>
                 <button className='phoneButton' onClick={ultraRebirth}>
                   <img src={Phone} alt='phone' />
-                  <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))})</div>
+                  <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))} Bens)</div>
                 </button>
               </div>
             )}
@@ -393,9 +431,10 @@ function App() {
                 <div>Bens: <strong>{formatNumber(count)}</strong></div>
                 <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
                 <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
-                <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)}</strong></div>
-                <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1))}</strong></div>
-                <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1))}</strong></div>
+                <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)} (x{ultraRebirths + 1})</strong></div>
+                <div>Raum Multiplier: <strong>x{formatNumber(backGrounds[selectedBackground]?.multiplier)}</strong></div>
+                <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
+                <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
               </div>
 
               <br />
@@ -455,16 +494,6 @@ function App() {
                     />
                     <label htmlFor="holdToggle">Holdable Klick deaktivieren</label>
                   </div>
-
-                  {/* <div>
-                  <input
-                    type="checkbox"
-                    id="rainbowToggle"
-                    checked={!rainbow}
-                    onChange={rainbowToggler}
-                  />
-                  <label htmlFor="rainbowToggle">Rainbow Text deaktivieren</label>
-                </div> */}
                   <p><button id="deleteButton" onClick={deleteSave}>Spielstand löschen</button></p>
                 </>
               )}
@@ -477,17 +506,69 @@ function App() {
               <div className='phoneContainer'>
                 <button className='phoneButton' onClick={ultraRebirth}>
                   <img src={Phone} alt='phone' />
-                  <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))})</div>
+                  <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))} Bens)</div>
                 </button>
               </div>
 
-              <button className='showSkinsButton' onClick={() => setShowSkins(!showSkins)}>{`Skins ${!showSkins ? "anzeigen" : "verbergen"}`}</button>
+              <div className='buttonsSectionMobile'>
+                <button className='showSkinsButton' onClick={() => setShowSkins(!showSkins)}>{`Skins ${!showSkins ? "anzeigen" : "verbergen"}`}</button>
+                <button className='showSettingsButton' onClick={() => setShowSettings(!showSettings)}>
+                  {`Einstellungen ${!showSettings ? "anzeigen" : "verbergen"}`}
+                </button>
+                <button className='showBackgroundButtons' onClick={() => setShowBackGrounds(!showBackgrounds)}>
+                  {`Hintergründe ${!showBackgrounds ? "anzeigen" : "verbergen"}`}
+                </button>
+              </div>
+
               {showSkins &&
                 <div className='skinContainer'>
                   <div className='skinWrapper'>
                     <Skinlocker skins={skins} rebirthLevel={ultraRebirths} onSkinSelect={handleSkinSelect} />
                   </div>
                 </div>
+              }
+
+              {showBackgrounds &&
+                <div className='skinContainer'>
+                  <div className='skinWrapper'>
+                    <BackgroundLocker backgrounds={backGrounds} rebirthLevel={ultraRebirths} onBackgroundSelect={handleBackgroundSelect} />
+                  </div>
+                </div>
+              }
+
+              {showSettings &&
+                <>
+                  <h2>Einstellungen</h2>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="benToggle"
+                      checked={!benMoveTrue}
+                      onChange={benMoveToggle}
+                    />
+                    <label htmlFor="benToggle">Ben Bewegung deaktivieren</label>
+                  </div>
+
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="soundToggle"
+                      checked={!playSound}
+                      onChange={benSoundToggle}
+                    />
+                    <label htmlFor="soundToggle">Ben Sound deaktivieren</label>
+                  </div>
+
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="holdToggle"
+                      checked={!holdable}
+                      onChange={holdToggler}
+                    />
+                    <label htmlFor="holdToggle">Holdable Klick deaktivieren</label>
+                  </div>
+                </>
               }
             </>
           }
