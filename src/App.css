@@ -168,6 +168,13 @@
 
   .controls {
     display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .autoClickerSection,
+  .multiplierSection {
+    width: 50%;
   }
 
   .multiplierSection button,
