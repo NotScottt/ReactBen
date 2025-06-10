@@ -455,33 +455,36 @@ function App() {
             </div>
 
             {screenWidth >= 1025 && (
-              <div className='phoneContainer'>
-                <button className='phoneButton' onClick={ultraRebirth}>
-                  <img src={Phone} alt='phone' />
-                  <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))} Bens)</div>
-                </button>
+              <div className='downSection'>
+                <div className='phoneContainer'>
+                  <button className='phoneButton' onClick={ultraRebirth}>
+                    <img src={Phone} alt='phone' />
+                    <div>Ultra Rebirth ({formatNumber(getUltraRebirthCost(ultraRebirths))} Bens)</div>
+                  </button>
+                </div>
+
+                <div>
+                  {screenWidth >= 1025 &&
+                    <h2>Ben Clicker Stats</h2>
+                  }
+
+                  <div>
+                    <div>Bens: <strong>{formatNumber(count)}</strong></div>
+                    <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
+                    <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
+                    <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)} (x{ultraRebirths + 1})</strong></div>
+                    <div>Raum Multiplier: <strong>x{formatNumber(backGrounds[selectedBackground]?.multiplier)}</strong></div>
+                    <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
+                    <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
+                  </div></div>
               </div>
+
             )}
           </div>
 
 
           <div className='statsContainer'>
             <div className='statsWrapper'>
-              {screenWidth >= 1025 &&
-                <h2>Ben Clicker Stats</h2>
-              }
-
-              <div>
-                <div>Bens: <strong>{formatNumber(count)}</strong></div>
-                <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
-                <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
-                <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)} (x{ultraRebirths + 1})</strong></div>
-                <div>Raum Multiplier: <strong>x{formatNumber(backGrounds[selectedBackground]?.multiplier)}</strong></div>
-                <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
-                <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
-              </div>
-
-              <br />
               <BenClickControls
                 onBuyMultiplier={buyMultiplier}
                 onBuyMultiplierX5={buyMultiplierX5}

@@ -50,20 +50,12 @@ function BenClickControls({
         <button onClick={onBuyMultiplierX1000}>
           x1.000 Multiplier ({totalMultiplierCostX1000})
         </button>
-        {ultraRebirths >= 20 ? (
-          <div className="ultraUpgradeSection">
-            <button onClick={onBuyMultiplierX10000}>
-              x10.000 Multiplier ({totalMultiplierCostX10000})
-            </button>
-            {ultraRebirths >= 20 && (
-              <button onClick={onBuyMultiplierX100000}>
-                x100.000 Multiplier ({totalMultiplierCostX100000})
-              </button>
-            )}
-          </div>
-        ) : (
-          <button onClick={onBuyMultiplierX10000}>
-            x10.000 Multiplier ({totalMultiplierCostX10000})
+        <button onClick={onBuyMultiplierX10000}>
+          x10.000 Multiplier ({totalMultiplierCostX10000})
+        </button>
+        {ultraRebirths >= 20 && (
+          <button onClick={onBuyMultiplierX100000}>
+            x100.000 Multiplier ({totalMultiplierCostX100000})
           </button>
         )}
       </div>
@@ -85,20 +77,12 @@ function BenClickControls({
         <button onClick={onBuyAutoClickerX1000}>
           x1.000 Auto Clicker ({totalAutoClickerCostX1000})
         </button>
-        {ultraRebirths >= 20 ? (
-          <div className="ultraUpgradeSection">
-            <button onClick={onBuyAutoClickerX10000}>
-              x10.000 Auto Clicker ({totalAutoClickerCostX10000})
-            </button>
-            {ultraRebirths >= 20 && (
-              <button onClick={onBuyAutoClickerX100000}>
-                x100.000 Auto Clicker ({totalAutoClickerCostX100000})
-              </button>
-            )}
-          </div>
-        ) : (
-          <button onClick={onBuyAutoClickerX10000}>
-            x10.000 Auto Clicker ({totalAutoClickerCostX10000})
+        <button onClick={onBuyAutoClickerX10000}>
+          x10.000 Auto Clicker ({totalAutoClickerCostX10000})
+        </button>
+        {ultraRebirths >= 20 && (
+          <button onClick={onBuyAutoClickerX100000}>
+            x100.000 Auto Clicker ({totalAutoClickerCostX100000})
           </button>
         )}
       </div>

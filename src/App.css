@@ -113,6 +113,12 @@
   margin-bottom: 15px;
 } */
 
+.downSection {
+  display: flex;
+  justify-content: center;
+  gap: 20%;
+}
+
 .buttonsSectionMobile {
   display: flex;
   align-items: center;
