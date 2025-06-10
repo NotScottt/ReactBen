@@ -268,6 +268,7 @@ function App() {
       setMultiplier(1);
       setAutoClickers(0);
       setSelectedSkin(selectedSkin + 1)
+      localStorage.setItem('selectedSkin', selectedSkin + 1);
       const newRebirths = ultraRebirths + 1;
       setUltraRebirths(newRebirths);
       saveGame({
@@ -388,12 +389,14 @@ function App() {
                 <h2>Ben Clicker Stats</h2>
               }
 
-              <div>Bens: <strong>{formatNumber(count)}</strong></div>
-              <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
-              <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
-              <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)}</strong></div>
-              <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1))}</strong></div>
-              <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1))}</strong></div>
+              <div>
+                <div>Bens: <strong>{formatNumber(count)}</strong></div>
+                <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
+                <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
+                <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)}</strong></div>
+                <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1))}</strong></div>
+                <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1))}</strong></div>
+              </div>
 
               <br />
               <BenClickControls

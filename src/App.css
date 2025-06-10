@@ -119,8 +119,8 @@
   }
 
   .background img {
-    width: 100vw;
-    height: 65vh;
+    /* width: 100vw; */
+    height: 30vh;
     object-fit: cover;
     display: block;
     user-select: none;
