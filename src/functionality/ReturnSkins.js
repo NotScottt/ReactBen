@@ -24,6 +24,7 @@ export function ReturnSkins() {
         { src: 'assets/BenSkins/WtfBen.png', description: "Pedo Ben" },
         { src: 'assets/BenSkins/MaidBen.png', description: "Fabrice" },
         { src: 'assets/BenSkins/LeonLoveBen.png', description: "Love Leon Ben" },
+        { src: 'assets/BenSkins/WastelandBen.png', description: "Wasteland Ben" },
         { src: 'assets/BenSkins/SnakeBen.png', description: "Schlangen Ben" },
         { src: 'assets/BenSkins/IronBen.png', description: "Ironben" },
         { src: 'assets/BenSkins/ZombieBen.png', description: "Zombie Ben" },

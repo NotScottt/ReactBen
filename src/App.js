@@ -454,6 +454,18 @@ function App() {
               </div>
             </div>
 
+            {screenWidth < 1025 && (
+              <div>
+                <div>Bens: <strong>{formatNumber(count)}</strong></div>
+                <div>Multiplier: <strong>{formatNumber(multiplier)}</strong></div>
+                <div>Auto Clickers: <strong>{formatNumber(autoClickers)}</strong></div>
+                <div>Ultra Rebirths: <strong>{formatNumber(ultraRebirths)} (x{ultraRebirths + 1})</strong></div>
+                <div>Raum Multiplier: <strong>x{formatNumber(backGrounds[selectedBackground]?.multiplier)}</strong></div>
+                <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
+                <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
+              </div>
+            )}
+
             {screenWidth >= 1025 && (
               <div className='downSection'>
                 <div className='phoneContainer'>
@@ -464,9 +476,8 @@ function App() {
                 </div>
 
                 <div>
-                  {screenWidth >= 1025 &&
-                    <h2>Ben Clicker Stats</h2>
-                  }
+                  <h2>Ben Clicker Stats</h2>
+
 
                   <div>
                     <div>Bens: <strong>{formatNumber(count)}</strong></div>
@@ -476,7 +487,8 @@ function App() {
                     <div>Raum Multiplier: <strong>x{formatNumber(backGrounds[selectedBackground]?.multiplier)}</strong></div>
                     <div>Bens per second: <strong>{formatNumber(autoClickers * multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
                     <div>Bens per click: <strong>{formatNumber(multiplier * (ultraRebirths + 1) * backgroundMultiplier)}</strong></div>
-                  </div></div>
+                  </div>
+                </div>
               </div>
 
             )}
