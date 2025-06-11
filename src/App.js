@@ -29,7 +29,7 @@ function App() {
   const [showBackgrounds, setShowBackGrounds] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [switchBackground, setSwitchBackground] = useState(false)
-
+  const [unlockedBackgrounds, setUnlockedBackgrounds] = useState(0)
 
   const [benMoveTrue, setBenMoveTrue] = useState(
     JSON.parse(localStorage.getItem('benMoveTrue')) ?? true
@@ -67,7 +67,9 @@ function App() {
     localStorage.removeItem('benClickerSave');
     localStorage.removeItem('benMoveTrue');
     localStorage.removeItem('selectedSkin');
+    localStorage.removeItem('selectedBackground');
     alert("Dein Spielstand wurde gelöscht!");
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -394,6 +396,15 @@ function App() {
   }
 
 
+  useEffect(() => {
+    const backGroundCount = backGrounds.length
+
+    setUnlockedBackgrounds(Math.min(
+      Math.floor(ultraRebirths / 5),
+      backGroundCount
+    ));
+  }, [backGrounds.length, ultraRebirths])
+
   return (
     <>
       <div className='maincontent'>
@@ -419,7 +430,7 @@ function App() {
                   ) : (
                     <>
                       <h2>Ben Hintergründe</h2>
-                      <div> 1 / {backGrounds.length} freigeschaltet</div>
+                      <div> {unlockedBackgrounds + 1 } / {backGrounds.length} freigeschaltet</div>
                       <BackgroundLocker backgrounds={backGrounds} rebirthLevel={ultraRebirths} onBackgroundSelect={handleBackgroundSelect} />
                     </>
                   )}
