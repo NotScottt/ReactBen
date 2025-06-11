@@ -234,6 +234,17 @@ function App() {
     }
   };
 
+  const buyMultiplierX1000000 = () => {
+    const cost = totalMultiplierCost(1000000);
+    if (count >= cost) {
+      const newCount = count - cost;
+      const newMultiplier = multiplier + 1000000;
+      setCount(newCount);
+      setMultiplier(newMultiplier);
+      saveGame({ count: newCount, multiplier: newMultiplier });
+    }
+  };
+
   const buyAutoClickerX5 = () => {
     let totalCost = 0;
     for (let i = 0; i < 5; i++) {
@@ -296,6 +307,17 @@ function App() {
     if (count >= totalCost) {
       const newCount = count - totalCost;
       const newAutoClickers = autoClickers + 100000;
+      setCount(newCount);
+      setAutoClickers(newAutoClickers);
+      saveGame({ count: newCount, autoClickers: newAutoClickers });
+    }
+  };
+
+  const buyAutoClickerX1000000 = () => {
+    const totalCost = totalAutoClickerCost(1000000);
+    if (count >= totalCost) {
+      const newCount = count - totalCost;
+      const newAutoClickers = autoClickers + 1000000;
       setCount(newCount);
       setAutoClickers(newAutoClickers);
       saveGame({ count: newCount, autoClickers: newAutoClickers });
@@ -516,6 +538,7 @@ function App() {
                 onBuyMultiplierX1000={buyMultiplierX1000}
                 onBuyMultiplierX10000={buyMultiplierX10000}
                 onBuyMultiplierX100000={buyMultiplierX100000}
+                onBuyMultiplierX1000000={buyMultiplierX1000000}
                 onBuyAutoClicker={buyAutoClicker}
                 onBuyAutoClickerX5={buyAutoClickerX5}
                 onBuyAutoClickerX10={buyAutoClickerX10}
@@ -523,6 +546,7 @@ function App() {
                 onBuyAutoClickerX1000={buyAutoClickerX1000}
                 onBuyAutoClickerX10000={buyAutoClickerX10000}
                 onBuyAutoClickerX100000={buyAutoClickerX100000}
+                onBuyAutoClickerX1000000={buyAutoClickerX1000000}
                 multiplierCost={formatNumber(multiplierCost())}
                 autoClickerCost={formatNumber(autoClickerCost())}
                 totalMultiplierCostX5={formatNumber(totalMultiplierCost(5))}
@@ -531,12 +555,14 @@ function App() {
                 totalMultiplierCostX1000={formatNumber(totalMultiplierCost(1000))}
                 totalMultiplierCostX10000={formatNumber(totalMultiplierCost(10000))}
                 totalMultiplierCostX100000={formatNumber(totalMultiplierCost(100000))}
+                totalMultiplierCostX1000000={formatNumber(totalMultiplierCost(1000000))}
                 totalAutoClickerCostX5={formatNumber(totalAutoClickerCost(5))}
                 totalAutoClickerCostX10={formatNumber(totalAutoClickerCost(10))}
                 totalAutoClickerCostX100={formatNumber(totalAutoClickerCost(100))}
                 totalAutoClickerCostX1000={formatNumber(totalAutoClickerCost(1000))}
                 totalAutoClickerCostX10000={formatNumber(totalAutoClickerCost(10000))}
                 totalAutoClickerCostX100000={formatNumber(totalAutoClickerCost(100000))}
+                totalAutoClickerCostX1000000={formatNumber(totalAutoClickerCost(1000000))}
                 ultraRebirths={ultraRebirths}
               // rainbowText={rainbow}
               />

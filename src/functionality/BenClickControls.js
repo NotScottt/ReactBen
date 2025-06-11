@@ -8,6 +8,7 @@ function BenClickControls({
   onBuyMultiplierX1000,
   onBuyMultiplierX10000,
   onBuyMultiplierX100000,
+  onBuyMultiplierX1000000,
   onBuyAutoClicker,
   onBuyAutoClickerX5,
   onBuyAutoClickerX10,
@@ -15,6 +16,7 @@ function BenClickControls({
   onBuyAutoClickerX1000,
   onBuyAutoClickerX10000,
   onBuyAutoClickerX100000,
+  onBuyAutoClickerX1000000,
   multiplierCost,
   autoClickerCost,
   totalMultiplierCostX5,
@@ -23,12 +25,14 @@ function BenClickControls({
   totalMultiplierCostX1000,
   totalMultiplierCostX10000,
   totalMultiplierCostX100000,
+  totalMultiplierCostX1000000,
   totalAutoClickerCostX5,
   totalAutoClickerCostX10,
   totalAutoClickerCostX100,
   totalAutoClickerCostX1000,
   totalAutoClickerCostX10000,
   totalAutoClickerCostX100000,
+  totalAutoClickerCostX1000000,
   ultraRebirths
 }) {
   return (
@@ -50,14 +54,26 @@ function BenClickControls({
         <button onClick={onBuyMultiplierX1000}>
           x1.000 Multiplier ({totalMultiplierCostX1000})
         </button>
-        <button onClick={onBuyMultiplierX10000}>
-          x10.000 Multiplier ({totalMultiplierCostX10000})
-        </button>
-        {ultraRebirths >= 20 && (
-          <button onClick={onBuyMultiplierX100000}>
-            x100.000 Multiplier ({totalMultiplierCostX100000})
-          </button>
+        {ultraRebirths <= 19 ? (
+          <>
+            <button onClick={onBuyMultiplierX10000}>
+              x10.000 Multiplier ({totalMultiplierCostX10000})
+            </button>
+            <button onClick={onBuyMultiplierX100000}>
+              x100.000 Multiplier ({totalMultiplierCostX100000})
+            </button>
+          </>
+        ) : (
+          <>
+            <button onClick={onBuyMultiplierX100000}>
+              x100.000 Multiplier ({totalMultiplierCostX100000})
+            </button>
+            <button onClick={onBuyMultiplierX1000000}>
+              x1.000.000 Multiplier ({totalMultiplierCostX1000000})
+            </button>
+          </>
         )}
+
       </div>
 
       <div className="autoClickerSection">
@@ -77,13 +93,24 @@ function BenClickControls({
         <button onClick={onBuyAutoClickerX1000}>
           x1.000 Auto Clicker ({totalAutoClickerCostX1000})
         </button>
-        <button onClick={onBuyAutoClickerX10000}>
-          x10.000 Auto Clicker ({totalAutoClickerCostX10000})
-        </button>
-        {ultraRebirths >= 20 && (
-          <button onClick={onBuyAutoClickerX100000}>
-            x100.000 Auto Clicker ({totalAutoClickerCostX100000})
-          </button>
+        {ultraRebirths <= 19 ? (
+          <>
+            <button onClick={onBuyAutoClickerX10000}>
+              x10.000 Auto Clicker ({totalAutoClickerCostX10000})
+            </button>
+            <button onClick={onBuyAutoClickerX100000}>
+              x100.000 Auto Clicker ({totalAutoClickerCostX100000})
+            </button>
+          </>
+        ) : (
+          <>
+             <button onClick={onBuyAutoClickerX100000}>
+              x100.000 Auto Clicker ({totalAutoClickerCostX100000})
+            </button>
+            <button onClick={onBuyAutoClickerX1000000}>
+              x1.000.000 Auto Clicker ({totalAutoClickerCostX1000000})
+            </button>
+          </>
         )}
       </div>
     </div>
