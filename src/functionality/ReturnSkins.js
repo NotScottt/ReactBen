@@ -1,7 +1,9 @@
 export function ReturnSkins() {
     const skinsSrc = [
         { src: 'assets/BenSkins/BenFigure.png', description: "Standard Ben" },
+        { src: 'assets/BenSkins/BenGioh.png', description: "Ben Gioh" },
         { src: 'assets/BenSkins/EmoBen.png', description: "Emo Ben :(" },
+        { src: 'assets/BenSkins/BenBanner1.png', description: "Ben Banner (Hulk Ben v1)" },
         { src: 'assets/BenSkins/LeanBen.png', description: "Lean Ben" },
         { src: 'assets/BenSkins/PencilBen.png', description: "Nerd Ben" },
         { src: 'assets/BenSkins/StonedBen.png', description: "Kiffer Ben v1" },
@@ -18,11 +20,13 @@ export function ReturnSkins() {
         { src: 'assets/BenSkins/BenKawasaki.png', description: "Kawasaki Ben" },
         { src: 'assets/BenSkins/BenTerror.png', description: "Terror Ben" },
         { src: 'assets/BenSkins/BongBen.png', description: "Kiffer Ben v2" },
+        { src: 'assets/BenSkins/BenBanner2.png', description: "Ben Banner (Hulk Ben v2)" },
         { src: 'assets/BenSkins/BenMan.png', description: "Benman" },
         { src: 'assets/BenSkins/PizzaBen.png', description: "Pizza Ben" },
         { src: 'assets/BenSkins/WasJucktMichDasBen.png', description: "Was juckt mich das? Ben" },
         { src: 'assets/BenSkins/WtfBen.png', description: "Pedo Ben" },
         { src: 'assets/BenSkins/MaidBen.png', description: "Fabrice" },
+        { src: 'assets/BenSkins/DoubleBenGioh.png', description: "Double Ben Gioh ???" },
         { src: 'assets/BenSkins/LeonLoveBen.png', description: "Love Leon Ben" },
         { src: 'assets/BenSkins/WastelandBen.png', description: "Wasteland Ben" },
         { src: 'assets/BenSkins/SnakeBen.png', description: "Schlangen Ben" },

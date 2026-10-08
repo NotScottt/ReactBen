@@ -432,7 +432,7 @@ function App() {
       <div className='maincontent'>
         <div className='headerContainer'>
           <strong id='item1'>Talking Ben Clicker by Scott</strong>
-          <div id='item2'>(version 1.1.0 please kill me)</div>
+          <div id='item2'>(version 1.8.7 please kill me)</div>
         </div>
 
         <div className='benWrapper'>
@@ -466,6 +466,7 @@ function App() {
           <div className='gameContainerWrapper'>
             <div className='gameContainer'>
               <div className='currentSkin'>Aktueller Skin: <strong>{skins[selectedSkin]?.description || "Standard Ben"}</strong></div>
+              <div className='currentSkin'>Aktueller Hintergrund: <strong>{backGrounds[selectedBackground]?.description || "Ben's Raum"}</strong></div>
               <div className='background'>
                 <img src={BackgroundPicker(selectedBackground)} alt='ben'></img>
 
@@ -509,7 +510,7 @@ function App() {
                 </div>
 
                 <div>
-                  <h2>Ben Clicker Stats</h2>
+                  <h2 id='StatsHeader'>Ben Clicker Stats</h2>
 
 
                   <div>

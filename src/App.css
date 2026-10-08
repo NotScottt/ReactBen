@@ -34,6 +34,11 @@
 
 #item2 {
   font-size: 12px;
+  margin-bottom: -3%;
+}
+
+#StatsHeader {
+  margin-bottom: -2%;
 }
 
 .gameContainer {
